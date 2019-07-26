@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 from dietary_faotools import *
+import csv
 
 
 #An example of how the get_land_saved(area_code, group, calorie_level,year) function works:
@@ -11,33 +12,24 @@ from dietary_faotools import *
 
 outlier_removal = 'yes'
 
+#the following piece of code generates the plot of land-spared (total,remote and local) vs years (from start_year to end_year, which are currently, as of July 2019, 1961 and 2013 respectively) for a particular food-group ( any one from 'fruits', 'vegetables','oils', 'sugar','meats', 'dairy') for a particular country.
 
-#the following piece of code generates the plot of land-spared (total,remote and local) vs years (from start_year to end_year, which are currently, as of July 2019, 1961 and 2013 respectively) for a particular food-group ( any one from 'fruits', 'vegetables','oils', 'sugar', 'meats', 'dairy') for a particular region (works for any region in dictionary values of region_codes. The sub-regions in the supplemantary of Rizhvi et al. are called here as 'Africa', 'Asia', 'Northern America', 'South America', 'Eastern Europe', 'European Union', 'Oceania')
+#set the variable region to the country_code of the country for which you want to observe land-spared vs years. You will find a mapping of country name to country code in CountryGroupFBS.csv
 
-
-
-#set the region for which you want to observe land-spared vs years
-region = 'Northern America' #any region from the values of the dictionary region_codes in constants.py. The region codes for generating results in supp of Rizhvi et al. were 'Africa', 'Asia', 'Northern America', 'South America', 'Eastern Europe', 'European Union', 'Oceania'. For viewing results for world use 'World'
-group = 'fruits'#any one from 'fruits', 'vegetables','oils', 'sugar', 'meats' or 'dairy'
+region = 231 #set to the country_code of the United States of America
+group = 'sugar'#any one from 'fruits', 'vegetables','oils', 'sugar', 'meats' or 'dairy'
 start_year = 1961 #the first year for which data is available in FAO as of July 2019
 end_year = 2013 #the latest year for which data is available in FAO as of July 2019
 land_use_dict = {}
+
 for year in range(start_year,end_year + 1):
-    local_res = 0.0
-    remote_res = 0.0
-    total_res = 0.0
-    for area in areapd.loc[areapd['Country Group'] == region]['Country Code'].tolist():
-        result = get_land_saved(area, group, 2000, year) #calorie-level is set to 2000 kcal/person/day. You may only change it to 1000 kcal/person/day  
-        local_res += result['local']
-        remote_res += result['remote']
-        total_res += result['total']
-    land_use_dict[year] = (local_res,remote_res,total_res)
+    result = get_land_saved(region, group, 2000, year) #calorie-level is set to 2000 kcal/person/day. You may only change it to 1000 kcal/person/day    
+    local_res = result['local']
+    remote_res = result['remote']
+    total_res = result['total']
     #printing year just for clocking the code
     print(year)
-    
-
-    
-#the following piece removes outliers
+    land_use_dict[year] = (total_res,local_res,remote_res)
     
 if outlier_removal == 'yes':
     new_land_dict = remove_outlier(land_use_dict,0)
@@ -46,7 +38,7 @@ if outlier_removal == 'yes':
     
 plt.plot(land_use_dict.keys(),[x[2] for x in list(land_use_dict.values())],'-o',label = 'total') #plots the total land-spared vs years
 plt.plot(land_use_dict.keys(),[x[0] for x in list(land_use_dict.values())],'-o', label = 'local') #plots the local land-spared vs years
-plt.title("%s" %group + ", " + region)
+plt.title("%s" %group + ", " + areapd.loc[areapd['Country Code'] == region]['Country'].values[0])
 plt.legend()
 plt.show()
 
