@@ -44,8 +44,8 @@ if outlier_removal == 'yes':
     new_land_dict = remove_outlier(new_land_dict,2)
     land_use_dict = new_land_dict
     
-plt.plot(land_use_dict.keys(),[x[2] for x in list(land_use_dict.values())],'-o',label = 'total') #plots the total land-spared vs years
-plt.plot(land_use_dict.keys(),[x[0] for x in list(land_use_dict.values())],'-o', label = 'local') #plots the local land-spared vs years
+plt.plot(list(land_use_dict.keys()),[x[2] for x in list(land_use_dict.values())],'-o',label = 'total') #plots the total land-spared vs years
+plt.plot(list(land_use_dict.keys()),[x[0] for x in list(land_use_dict.values())],'-o', label = 'local') #plots the local land-spared vs years
 plt.title("%s" %group + ", " + region)
 plt.legend()
 plt.show()
@@ -53,7 +53,7 @@ plt.show()
 #the following part writes the results of land-spared vs years into result.csv. Every time youu run a new csv will be created
 csvData = [['year', 'total(ha)', 'local(ha)', 'remote(ha)']]
 for _item in land_use_dict.keys():
-    csvData.append([_item,land_use_dict[_item][0], land_use_dict[_item][1], land_use_dict[_item][2]])
+    csvData.append([_item,land_use_dict[_item][2], land_use_dict[_item][0], land_use_dict[_item][1]])
     
 with open('result.csv', 'w') as csvFile:
     writer = csv.writer(csvFile)
