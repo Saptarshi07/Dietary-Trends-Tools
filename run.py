@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 from dietary_faotools import *
+import csv
 
 
 #An example of how the get_land_saved(area_code, group, calorie_level,year) function works:
