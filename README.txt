@@ -20,6 +20,3 @@ DOI:
 
 10.5281/zenodo.3353631
 
-Target URL for DOI:
-
-https://doi.org/10.5281/zenodo.335363
