@@ -211,6 +211,8 @@ def get_sub_continent(area_code):
         _area_subcontinent = 5303
     elif _area_subcontinent == 5504:
         _area_subcontinent = 5500
+    elif _area_subcontinent == 5706:
+        _area_subcontinent = 5400
     return _area_subcontinent
 
 
