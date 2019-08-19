@@ -20,3 +20,8 @@ DOI:
 
 10.5281/zenodo.3353631
 
+
+Technical Notes:
+
+1) When running temporal results for countries from run_country.py please note that countries like Yugoslavia and USSR do not exist after 1991 and so the all results for them is 0 after those years. Similarly, Serbia, Croatia etc (all countries breaking up from Former Yugoslavia) and Russia do not exist before 1991 and so all the results for those country codes are 0 after that date. To observe the temporal results (1961-2013) of the geopolitical region of, let's say present day Croatia, you have to observe the results of Yugoslavia (normalized by the population of Croatia region in Yugoslavia) till 1991 and observe the results of Croatia from 1991 onwards.
+
