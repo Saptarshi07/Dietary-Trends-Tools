@@ -158,14 +158,14 @@ def get_estimated_data(df,area_code,item_code,element_code,year):
         for j in next_prev:
             if data['Y' + str(j)].empty != 1:
                 if data['Y' + str(j)].isnull().values[0] != 1:
-                    return j
+                    return data['Y' + str(j)]
         return 0.0
         
     elif data['Y' + str(year)].isnull().values[0]:
         for j in next_prev:
             if data['Y' + str(j)].empty != 1:
                 if data['Y' + str(j)].isnull().values[0] != 1:
-                    return j
+                    return data['Y' + str(j)]
         return 0.0
     else:
         return data['Y' + str(year)].values[0]
@@ -524,3 +524,4 @@ def remove_outlier(dictionary,field):
         if dictionary[i][field] < val2 and dictionary[i][field] > val1:
             new_dict[i] = dictionary[i]
     return new_dict    
+
