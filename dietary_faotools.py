@@ -157,14 +157,14 @@ def get_estimated_data(df,area_code,item_code,element_code,year):
         for j in next_prev:
             if data['Y' + str(j)].empty != 1:
                 if data['Y' + str(j)].isnull().values[0] != 1:
-                    return data['Y' + str(j)]
+                    return data['Y' + str(j)].values[0]
         return 0.0
         
     elif data['Y' + str(year)].isnull().values[0]:
         for j in next_prev:
             if data['Y' + str(j)].empty != 1:
                 if data['Y' + str(j)].isnull().values[0] != 1:
-                    return data['Y' + str(j)]
+                    return data['Y' + str(j)].values[0]
         return 0.0
     else:
         return data['Y' + str(year)].values[0]
@@ -355,10 +355,12 @@ def get_pastoral_mixed_landless(area_code,item_code,year):
         mult = 1000 if liveanimalspd.loc[liveanimalspd['Item Code'] == _animal_code]['Unit'].values[0] == '1000 Head' else 1.0
         if k not in milkeggs_meat_mappings.values(): #an animal that does not produce milk/eggs
             stocks[k] = mult*get_estimated_data(liveanimalspd,area_code,_animal_code,stocks_code,year) #in heads
+            
         else:
             _milkeggs_code = meat_milkeggs_mappings[k]
             stocks[k] = mult*get_estimated_data(liveanimalspd,area_code,_animal_code,stocks_code,year) - get_estimated_data(livestockpd,area_code,_milkeggs_code,producing_animals_code,year)
-    
+      
+            
     new_stocks = {k:0.0 for k in bovine_meat_codes + ovine_meat_codes}
     for k in stocks.keys():
         similar_animal_meat = table267_similar_codes[k]
@@ -388,10 +390,12 @@ def get_pastoral_mixed_landless(area_code,item_code,year):
     _set_P = [new_stocks[k]['P'] for k in new_stocks.keys()]
     _set_ML = [new_stocks[k]['ML'] for k in new_stocks.keys()]
     
+    
     _value_P = _val_P*pastoral_area/sum(_set_P) if sum(_set_P) != 0 else 0.0
     _value_ML = _val_ML*mixedlandless_area/sum(_set_ML) if sum(_set_ML) != 0 else 0.0
     
     #this returns in hectares
+
     return {'T':_value_P*1000 + _value_ML*1000,'P':  _value_P*1000, 'ML': _value_ML*1000}
     
     
