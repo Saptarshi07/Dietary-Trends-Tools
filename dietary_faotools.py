@@ -325,7 +325,7 @@ def get_pastoral_mixed_landless(area_code,item_code,year):
         
     total_pasture = get_estimated_data(landusepd,area_code,perm_pasture_code,area_element_code,year) + get_estimated_data(landusepd,area_code,temp_pasture_code,area_element_code,year)
     if total_pasture == 0.0:
-        total_pasture = 0.69*get_estimated_data(landusepd,world_code,agriculture_land_code,area_element_code,year)
+        total_pasture = 0.69*get_estimated_data(landusepd,area_code,agriculture_land_code,area_element_code,year)
     #this gives total pasture in 1000 hectares
  
     year_p = year - 1970
