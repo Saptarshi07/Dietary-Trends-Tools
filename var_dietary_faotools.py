@@ -115,7 +115,7 @@ def get_land_saved_var(area_code, group, group_cal, year):
         
             
         imports_adj = (idr*food)/b2p_conversions[sub_group]
-        food_adj = (food - imports_adj)/b2p_conversions[sub_group]
+        food_adj = (food - imports_adj*b2p_conversions[sub_group])/b2p_conversions[sub_group]
         
         if yld == 0.0:
             idr = 1.0
