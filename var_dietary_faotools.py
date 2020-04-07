@@ -42,7 +42,7 @@ def val_groups_consumed(area_code,year):
 def get_total_land_saved_var(area_code,calorie_val_dist,year):
     val = 0
     for group in food_groups:
-        val += get_land_saved_var(area_code,group,calorie_val_dist[group],2013)['total']
+        val += get_land_saved_var(area_code,group,calorie_val_dist[group],year)['total']
     return val
 
 
