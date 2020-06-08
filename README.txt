@@ -14,6 +14,8 @@ https://drive.google.com/drive/folders/1zEExlrY4L9FLnCE7PZl73dTxSCX9PN8z?usp=sha
 
 6) Work with the python file - run_country.py for generating land-spared vs years results for food-group-country pairs.  Instructions on how to do that is provided in run_country.py. 
 
+7) For understanding the functions in the python files dietary_faotools.py and var_dietary_faotools.py in an interactive way, visit the jupyter notebook test.ipynb
+
 DOI badge the project:
 
 https://zenodo.org/badge/DOI/10.5281/zenodo.3353631.svg
